@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.core.imgsrv.dao.read.TblImageRMapper">
+
+	<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+		id
+		,name
+		,md5name
+		,path
+		,is_historical_data
+		,create_time
+		,create_by
+		,extension
+	</sql>
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.core.imgsrv.dao.entity.TblImage">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="md5name" jdbcType="VARCHAR" property="md5name" />
+		<result column="path" jdbcType="VARCHAR" property="path" />
+		<result column="is_historical_data" jdbcType="BIT" property="isHistoricalData" />
+		<result column="create_time" jdbcType="BIGINT" property="createTime" />
+		<result column="create_by" jdbcType="BIGINT" property="createBy" />
+		<result column="extension" jdbcType="VARCHAR" property="extension" />
+	</resultMap>
+
+	<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		<if test="bParam != null">
+			<if test="bParam.name != null"> AND name like #{bParam.name,jdbcType=VARCHAR}% </if>
+			<if test="bParam.md5name != null"> AND md5name = #{bParam.md5name,jdbcType=VARCHAR} </if>
+			<if test="bParam.isHistoricalData != null"> AND is_historical_data =
+				#{bParam.isHistoricalData,jdbcType=BIT}
+			</if>
+			<if test="bParam.createBy != null"> AND create_by like #{bParam.createBy,jdbcType=BIGINT}%
+			</if>
+			<if test="bParam.extension != null"> AND extension = #{bParam.extension,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.searchStartDate != null">
+				and create_time &gt;=
+				#{bParam.searchStartDate,jdbcType=BIGINT}
+			</if>
+			<if test="bParam.searchEndDate != null">
+				and create_time &lt;=
+				#{bParam.searchEndDate,jdbcType=BIGINT}
+			</if>
+			
+			<if test="bParam.searchKey != null">
+				and 
+				(
+					name like concat(#{bParam.searchKey,jdbcType=VARCHAR}, '%')
+					or md5name like concat(#{bParam.searchKey,jdbcType=VARCHAR}, '%')
+					or create_by like concat(#{bParam.searchKey,jdbcType=VARCHAR}, '%')
+					or extension like concat(#{bParam.searchKey,jdbcType=VARCHAR}, '%')
+					or path like concat(#{bParam.searchKey,jdbcType=VARCHAR}, '%')
+				)
+			</if>
+		</if>
+	</sql>
+	<sql id="sql_of_select_by_param">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_image
+		<where>
+			<include refid="sql_of_where" />
+		</where>
+	</sql>
+
+	<!-- 通用分页查询 -->
+	<select id="selectByParam" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		<include refid="sql_of_select_by_param" />
+		order by create_time desc
+		<if test="bParam.page != null">
+			limit #{bParam.page.pageIndex} , #{bParam.page.pageSize}
+		</if>
+	</select>
+
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParam" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(z.id) from (
+		<include refid="sql_of_select_by_param" />
+		) z
+	</select>
+
+	<!-- 根据MD5查询图片 -->
+	<select id="selectByMD5Name" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_image
+		where md5name = #{md5name,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据path查询图片 -->
+	<select id="selectByPath" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_image
+		where path = #{path,jdbcType=VARCHAR}
+	</select>
+</mapper>

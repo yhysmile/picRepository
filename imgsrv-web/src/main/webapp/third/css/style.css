@@ -1,0 +1,75 @@
+body {
+  background:url(image/login_bg.jpg) #f8f6e9 0 0 no-repeat;
+  background-size: cover;
+}
+ 
+.signin {
+  width:400px;
+  height:360px;
+  background: rgb(247, 247, 247);
+  border: 1px solid rgba(147, 184, 189,0.8);
+  box-shadow:	
+	0pt 2px 5px rgba(105, 108, 109,  0.7),	
+	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+  border-radius: 5px;
+  margin:0 auto;  
+  position:absolute;
+  top:50%;
+  left:50%;
+  margin-top:-239px;
+  margin-left:-238px;
+}
+.signin-head {
+  margin:0 auto;
+  padding-top:10px;
+  width:398px;
+  background:#B0E2FF;
+}
+.form-signin {
+  max-width: 330px;
+  padding: 43px 15px 15px 15px;
+  margin: 0 auto;
+}
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 14px;
+  border-radius: 0;
+  background: url(../images/login_user.png) 0 0 #bdbdbd no-repeat;
+  padding-left:60px;
+  color:#FFFFFF;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-radius: 0;
+  background: url(../images/login_pas.png) 0 0 #bdbdbd no-repeat;
+  padding-left:60px;
+  color:#FFFFFF;
+}
+.form-signin button {
+  border-radius: 0;
+}
+
+h1{
+	font-size: 36px;
+	color: rgb(6, 106, 117);
+	font-family: 'FranchiseRegular','Arial Narrow',Arial,sans-serif;
+	font-weight: bold;
+	text-align: center;
+}

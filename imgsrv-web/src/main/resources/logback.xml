@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration debug="false" scan="true">
+	<property name="log.path" value="/data/logs" />
+	<property name="enginee" value="图片" />
+    <!-- 控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+	<appender name="imgsrv-data" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>info</level>
+                        <onMatch>ACCEPT</onMatch>
+                        <onMismatch>DENY </onMismatch>
+		</filter>
+		<file>${log.path}/imgsrv-data.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}/%d{yyyyMMdd}_imgsrv-data.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.pzj.framework.logger.layout.LoggerPatternLayout">
+                <pattern>%d{HH:mm:ss.SSS} [${enginee}] %inet [%5p] [%thread] [%C{0}.%M] -> %m%n</pattern>
+            </layout>
+        </encoder>
+	</appender>
+
+	<appender name="imgsrv-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>error</level>
+                        <onMatch>ACCEPT</onMatch>
+                        <onMismatch>DENY </onMismatch>
+		</filter>
+		<file>${log.path}/imgsrv-error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}/%d{yyyyMMdd}_imgsrv-error.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.pzj.framework.logger.layout.LoggerPatternLayout">
+                <pattern>%d{HH:mm:ss.SSS} [${enginee}] %inet [%5p] [%thread] [%C{0}.%M] -> %m%n</pattern>
+            </layout>
+        </encoder>
+	</appender>
+
+	<logger name="com.pzj.core.imgsrv" level="debug" additivity="false">
+		<appender-ref ref="imgsrv-data" />
+		<appender-ref ref="imgsrv-error" />
+	</logger>
+	<logger name="org.apache.ibatis" level="DEBUG">
+		<appender-ref ref="stdout"/>
+	</logger>
+	<logger name="java.sql" level="debug">
+	    <appender-ref ref="stdout"/>
+	</logger> 
+	
+	<logger name="org.springframework" level="INFO" />
+	<logger name="com.alibaba" level="INFO" />
+	<logger name="org.apache" level="ERROR" />
+
+    <root level="info">
+		<appender-ref ref="imgsrv-data" />
+		<appender-ref ref="imgsrv-error" />
+	</root>
+</configuration>

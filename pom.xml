@@ -21,13 +21,23 @@
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
 		<project.jdk.version>1.7</project.jdk.version>
-		<build.target.version>2.3.0</build.target.version>
+		<build.target.version>2.3.1</build.target.version>
 		<pzj.imgsrv.version>1.0.0-SNAPSHOT</pzj.imgsrv.version>
-		<pzj.toolkit.version>1.3.3</pzj.toolkit.version>
-		<pzj.logger.version>1.0.0</pzj.logger.version>
+		<pzj.toolkit.version>1.3.8-SNAPSHOT</pzj.toolkit.version>
+		<pzj.logger.version>1.0.0-SNAPSHOT</pzj.logger.version>
+		<pzj.idgen.version>1.1.1</pzj.idgen.version>
 		<servlet.version>3.1.0</servlet.version>
-		<spring.boot.version>1.3.4.RELEASE</spring.boot.version>
-        <tomcat.version>7.0.69</tomcat.version>
+		<springframework.version>4.3.0.RELEASE</springframework.version>
+		<tomcat.version>7.0.69</tomcat.version>
+		<mybatis.version>3.1.0</mybatis.version>
+		<mybatis.spring.version>1.2.2</mybatis.spring.version>
+		<mysql.connector.java.version>5.1.33</mysql.connector.java.version>
+		<druid.version>1.0.9</druid.version>
+		<aliyun.oss.version>2.5.0</aliyun.oss.version>
+		<apache.fileupload.version>1.3.1</apache.fileupload.version>
+		<net.json.version>2.4</net.json.version>
+		<cglib.version>2.2.2</cglib.version>
+		<jackson.version>2.5.3</jackson.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -42,30 +52,152 @@
 				<version>${pzj.logger.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.pzj.framework</groupId>
+				<artifactId>idgen</artifactId>
+				<version>${pzj.idgen.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.pzj.imgsrv</groupId>
 				<artifactId>imgsrv-facade</artifactId>
+				<version>${pzj.imgsrv.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.pzj.imgsrv</groupId>
+				<artifactId>imgsrv-dao</artifactId>
+				<version>${pzj.imgsrv.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.pzj.imgsrv</groupId>
+				<artifactId>imgsrv-engine</artifactId>
+				<version>${pzj.imgsrv.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.pzj.imgsrv</groupId>
+				<artifactId>imgsrv-service</artifactId>
 				<version>${pzj.imgsrv.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${servlet.version}</version>
+				<scope>provided</scope>
 			</dependency>
-			<!-- spring boot start -->
+
+			<!-- spring config start -->
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${springframework.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring.boot.version}</version>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${springframework.version}</version>
 			</dependency>
-			<!-- spring boot end -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+			<!-- spring config end -->
+
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>${cglib.version}</version>
+			</dependency>
+
+			<!-- mybatis config start -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.connector.java.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis.spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+			<!-- mybatis config end -->
+			<!-- oss config start -->
+			<dependency>
+				<groupId>com.aliyun.oss</groupId>
+				<artifactId>aliyun-sdk-oss</artifactId>
+				<version>${aliyun.oss.version}</version>
+			</dependency>
+			<!-- oss config end -->
+
+			<!-- apache fileupload start -->
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${apache.fileupload.version}</version>
+			</dependency>
+			<!-- apache fileupload start -->
 			
+			<dependency>  
+            <groupId>com.fasterxml.jackson.core</groupId>  
+            <artifactId>jackson-databind</artifactId>  
+            <version>${jackson.version}</version>  
+           </dependency>
+
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -75,14 +207,85 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<build>  
-    <plugins>  
-        <plugin>  
-            <groupId>org.springframework.boot</groupId>  
-            <artifactId>spring-boot-maven-plugin</artifactId>  
-        </plugin>  
-    </plugins>  
-</build>  
+	<build>
+		<defaultGoal>package</defaultGoal>
+		<finalName>${project.artifactId}-${build.target.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							<useUniqueVersions>true</useUniqueVersions>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<includeEmptyDirs>true</includeEmptyDirs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${project.jdk.version}</source>
+					<target>${project.jdk.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+				<version>2.7</version> <executions> <execution> <id>attach-javadoc</id> <goals> 
+				<goal>jar</goal> </goals> </execution> </executions> <configuration> <show>public</show> 
+				<skip>false</skip> <doctitle>${project.name}</doctitle> </configuration> 
+				</plugin> -->
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<!-- <includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.ftl</include>
+					<include>**/*.json</include>
+				</includes> -->
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources/${profiles.active}</directory>
+			</resource>
+		</resources>
+	</build>
 
 	<!-- 设置本地仓库 -->
 	<repositories>

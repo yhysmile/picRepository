@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
-Build-Jdk: 1.7.0_67
-Built-By: Administrator
+Implementation-Title: imgsrv-facade
+Implementation-Version: 1.0.0-SNAPSHOT
+Implementation-Vendor-Id: com.pzj.imgsrv
+Build-Jdk: 1.7.0_80
+Built-By: yhy
 Created-By: Maven Integration for Eclipse
+Specification-Title: imgsrv-facade
+Specification-Version: 1.0.0-SNAPSHOT
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 使用disconf必须添加以下配置-->
+	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
+	      destroy-method="destroy" lazy-init="false">
+	    <property name="scanPackage" value="com.pzj.core.imgsrv"/>
+	</bean>
+	<bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
+	      init-method="init" destroy-method="destroy" lazy-init="false">
+	</bean>
+ 
+	<!--配置更改会自动reload-->
+	<bean id="configproperties_disconf" class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean" lazy-init="false">
+	    <property name="locations">
+	        <list>
+	            <value type="java.lang.String">classpath*:jdbc.properties</value>
+	            <value type="java.lang.String">classpath*:aliyun.properties</value>    
+	            <value type="java.lang.String">classpath*:image.properties</value>
+	            <value type="java.lang.String">classpath*:ldap.properties</value>          
+	        </list>
+	    </property>
+	</bean>
+	<bean id="propertyConfigurer"
+	      class="com.baidu.disconf.client.addons.properties.ReloadingPropertyPlaceholderConfigurer" lazy-init="false">
+	    <property name="ignoreResourceNotFound" value="true"/>
+	    <property name="ignoreUnresolvablePlaceholders" value="true"/>
+	    <property name="propertiesArray">
+	        <list>
+	            <ref bean="configproperties_disconf"/>
+	        </list>
+	    </property>
+	</bean>
+</beans>
